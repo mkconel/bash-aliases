@@ -1,0 +1,43 @@
+docker:
+d: docker
+da: docker attach ?
+db: docker build
+dbn: docker build --no-cache
+di: docker inspect ?
+dl: docker logs ?
+dlt: docker logs -n 100 ?
+dlf: docker logs -f ?
+dlft: docker logs -f -n 100 ?
+dsr: docker restart ?
+dsa: docker start ?
+dso: docker stop ?
+dt: docker tag
+dr: docker run 
+de: docker exec -it ? ?
+dp: docker ps -a
+
+docker compose:
+dc: docker compose
+dca: docker compose attach ?
+dcb: docker compose build
+dcbn: docker compose build --no-cache
+dcd: docker compose down
+dce: docker compose exec ? ?
+dcl: docker compose logs 
+dclt: docker compose logs -n 100 
+dclf: docker compose logs -f 
+dclft: docker compose logs -f -n 100 
+dcp: docker compose ps -a
+dcsr: docker compose restart
+dcsa: docker compose start
+dcso: docker compose stop
+dcu: docker compose up -d
+dcup: docker compose up -d --pull always
+
+mutagen:
+m: mutagen
+msc: mutagen sync create
+msl: mutagen sync list
+msm: mutagen sync monitor
+mst: mutagen sync terminate
+msta: mutagen sync terminate -a
