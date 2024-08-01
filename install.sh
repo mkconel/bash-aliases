@@ -9,6 +9,8 @@ function printUsage() {
     exit 1
 }
 
+cd $(dirname "$(realpath "$0")")
+
 INSTALL=0
 INSTALL_LEGACY_DC=0
 
