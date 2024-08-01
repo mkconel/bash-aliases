@@ -14,4 +14,4 @@ Run as root to install to /etc/bash.bashrc. It should work on any Debian-like di
 
 Using older Docker Compose (docker-compose (python script)) instead of docker compose (a.k.a. docker compose plugn)?
 
-    ./install .sh -i -l
+    ./install.sh -i -l
