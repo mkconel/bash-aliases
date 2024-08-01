@@ -35,19 +35,30 @@ if [ $INSTALL != 1 ]; then
     exit 1;
 fi
 
+if [[ $EUID -ne 0 ]]; then
+    echo "This script needs root permissions to install aliases into system-wide configuration files and root .bashrc"
+
+    exit 1;
+fi
+
 echo "Updating Git repo..."
 git pull
 
-sed -i '/CBA_DC_PREFIX=/d' /etc/bash.bashrc
-if [ $INSTALL_LEGACY_DC == 1 ]; then
-    echo "CBA_DC_PREFIX=\"docker-compose\"" >> /etc/bash.bashrc
-else
-    echo "CBA_DC_PREFIX=\"docker compose\"" >> /etc/bash.bashrc
-fi
-
+echo "Copying aliases to system-wide directory..."
 cat docker.aliases.sh docker-compose.aliases.sh mutagen.aliases.sh > /etc/bash.conel-bash-aliases
 
-sed -i '/source \/etc\/bash.conel-bash-aliases/d' /etc/bash.bashrc
-echo "source /etc/bash.conel-bash-aliases" >> /etc/bash.bashrc
+echo "Configuring aliases for non-root users..."
+sed -i '/CBA_DC_PREFIX=/d' /etc/profile
+if [ $INSTALL_LEGACY_DC == 1 ]; then
+    echo "CBA_DC_PREFIX=\"docker-compose\"" >> /etc/profile
+else
+    echo "CBA_DC_PREFIX=\"docker compose\"" >> /etc/profile
+fi
+sed -i '/\. \/etc\/bash.conel-bash-aliases/d' /etc/profile
+echo ". /etc/bash.conel-bash-aliases" >> /etc/profile
 
-source /etc/bash.conel-bash-aliases
+echo "Configuring aliases for root..."
+sed -i '/\. \/etc\/bash.conel-bash-aliases/d' /root/.bashrc
+echo ". /etc/bash.conel-bash-aliases" >> /root/.bashrc
+
+. /etc/bash.conel-bash-aliases
